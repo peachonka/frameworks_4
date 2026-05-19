@@ -128,4 +128,12 @@ public class ProcessService
         public ProcessState State { get; set; } = ProcessState.New;
         public HashSet<string> ProcessedIdempotencyKeys { get; } = new();
     }
+
+    // Services/ProcessService.cs
+public void ForceSetState(string processKey, ProcessState state)
+{
+    var instance = _processes.GetOrAdd(processKey, _ => new ProcessInstance());
+    instance.State = state;
+}
+    
 }
